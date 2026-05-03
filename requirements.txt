@@ -6,3 +6,4 @@ streamlit-folium
 scikit-fuzzy
 numpy
 scipy
+networkx
