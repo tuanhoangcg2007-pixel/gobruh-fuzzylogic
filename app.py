@@ -8,14 +8,12 @@ import numpy as np
 import skfuzzy as fuzz
 from skfuzzy import control as ctrl
 
-# --- 1. CẤU HÌNH GIAO DIỆN WEB ---
 st.set_page_config(page_title="GOBRUH- Đặt Xe AI", page_icon="🚕", layout="centered")
 
 st.title("🚕 GOBRUH")
 st.markdown("**Đồng Hành Cùng Bạn Trên Mọi Nẻo Đường**")
 st.divider()
 
-# --- 2. HỆ THỐNG FUZZY LOGIC (LOGIC MỜ) ---
 def get_fuzzy_surge(current_hour, weather_score):
     # Khai báo các biến đầu vào và đầu ra
     time = ctrl.Antecedent(np.arange(0, 24.1, 0.1), 'time')
@@ -39,13 +37,12 @@ def get_fuzzy_surge(current_hour, weather_score):
     surge['normal'] = fuzz.trimf(surge.universe, [1.0, 1.2, 1.4])
     surge['high'] = fuzz.trimf(surge.universe, [1.3, 1.6, 2.0])
 
-    # Tạo Luật Mờ (Fuzzy Rules)
+    # Tạo Luật Mờ 
     rule1 = ctrl.Rule(weather['bad'] | time['morning_peak'] | time['evening_peak'], surge['high'])
     rule2 = ctrl.Rule(weather['good'] & (time['night'] | time['late_night']), surge['low'])
     rule3 = ctrl.Rule(weather['normal'] | time['day_normal'], surge['normal'])
     rule4 = ctrl.Rule(weather['good'] & time['day_normal'], surge['normal'])
 
-    # Khởi tạo bộ điều khiển và tính toán
     surge_ctrl = ctrl.ControlSystem([rule1, rule2, rule3, rule4])
     surge_sim = ctrl.ControlSystemSimulation(surge_ctrl)
 
@@ -55,7 +52,6 @@ def get_fuzzy_surge(current_hour, weather_score):
 
     return surge_sim.output['surge']
 
-# --- 3. HÀM GỬI THÔNG BÁO TELEGRAM ---
 def send_telegram_alert(message):
     bot_token = "MÃ_TOKEN_CỦA_BẠN"  # <-- ĐIỀN TOKEN VÀO ĐÂY
     chat_id = "CHAT_ID_CỦA_BẠN"     # <-- ĐIỀN CHAT ID VÀO ĐÂY
@@ -67,10 +63,9 @@ def send_telegram_alert(message):
     except Exception as e:
         print(f"Lỗi gửi Telegram: {e}")
 
-# --- 4. KHỞI TẠO BẢN ĐỒ PHOTON ---
 geolocator = Photon(user_agent="gobruh_ai_app", timeout=10)
 
-# --- 5. GIAO DIỆN NHẬP LIỆU ---
+#GIAO DIỆN NHẬP LIỆU ---
 with st.form("booking_form"):
     st.subheader("📍 Nhập thông tin lộ trình")
     
