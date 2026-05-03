@@ -9,10 +9,10 @@ import skfuzzy as fuzz
 from skfuzzy import control as ctrl
 
 # --- 1. CẤU HÌNH GIAO DIỆN WEB ---
-st.set_page_config(page_title="GOBRUH - Đặt Xe AI", page_icon="🚕", layout="centered")
+st.set_page_config(page_title="GOBRUH- Đặt Xe AI", page_icon="🚕", layout="centered")
 
-st.title("🚕 GOBRUH AI TOÀN QUỐC")
-st.markdown("**Định giá thông minh - Đồng Hành Trên Mọi Nẻo Đường**")
+st.title("🚕 GOBRUH")
+st.markdown("**Đồng Hành Cùng Bạn Trên Mọi Nẻo Đường**")
 st.divider()
 
 # --- 2. HỆ THỐNG FUZZY LOGIC (LOGIC MỜ) ---
